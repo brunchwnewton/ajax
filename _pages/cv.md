@@ -106,13 +106,15 @@ Benander, Ajax. [*A Condensed Overview of the Aethic Solution to the Measurement
 **TEACHING EXPERIENCE**  
 **RIT SCHOOL OF MATHEMATICS & STATISTICS** 
 
-**9/2025 \- 12/2025 	Grader \- Linear Algebra**									    	Grade student assignments weekly for Dr. Lucia Carichino.   
+**9/2025 \- 12/2025 	Grader \- Linear Algebra**  
+Grade student assignments weekly for Dr. Lucia Carichino.   
    
 **1/2025 \- 5/2025	Grader – Linear Systems and Differential Equations**  
 Grade student assignments weekly for Dr. Nate Barlow.   
    
 **9/2024 \- 12/2024 	Grader – Calculus II**	  
-Grade student assignments weekly for Dr. Nishant Malik.	    						      
+Grade student assignments weekly for Dr. Nishant Malik.	
+
 **HONORS & AWARDS**  
 	
 
@@ -125,7 +127,8 @@ Grade student assignments weekly for Dr. Nishant Malik.
 			For creativity and deep thinking in coursework. 
 
 **3/2024			Bronze Medal**  
-*Issued by ASA Datafest 2024*  		      				Participant in team Coding Cobras in the Category Best Use of External Data.	  
+*Issued by ASA Datafest 2024*  	  
+Participant in team Coding Cobras in the Category Best Use of External Data.	  
    
 **12/2022 \- 12/2024	Dean’s List**   
 			*Issued by Rochester Institute of Technology*  
