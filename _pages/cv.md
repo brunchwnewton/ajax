@@ -90,6 +90,7 @@ Grade student assignments weekly for Dr. Nate Barlow.
    
 **9/2024 \- 12/2024 	Grader – Calculus II**	  
 Grade student assignments weekly for Dr. Nishant Malik.	    						      
+
 **HONORS & AWARDS**  
 ---
 
