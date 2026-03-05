@@ -16,12 +16,14 @@ redirect_from:
 **ResearchGate:** [https://www.researchgate.net/profile/Ajax-Benander](https://www.researchgate.net/profile/Ajax-Benander)
 
 **EDUCATION**  
+---
 **8/2022 \- present 		Rochester Institute of Technology (RIT)**  		      			   
 *Rochester, New York, USA*  
 Anticipated Degree: B.S.in Applied Mathematics, Minor in Philosophy                                                  
 *RIT Presidential Scholar; Accelerated Scholar; Dean’s List*  
    
 **RESEARCH INTERESTS**  
+---
 **Quantum Foundations:** The measurement problem, structural realist interpretations of quantum mechanics, and observer-relative ontologies.  
    
 **Mathematical Physics:** Graph-theoretic formulations of state reduction, Markovian dynamics in the B-theory of time, and information-theoretic constraints on physical systems.  
@@ -29,6 +31,7 @@ Anticipated Degree: B.S.in Applied Mathematics, Minor in Philosophy
 **Formal Epistemology & Ontology:** The ontology of time (static block universe vs. temporal passage), Bayesian epistemology, and anthropic selection effects.  
    
 **RESEARCH EXPERIENCE**   
+---
 **5/2024 \- 12/2024 	Independent Supervised Study: Advanced Theoretical Exposition**    
 ***Rochester Institute of Technology,** Rochester, NY*  
 **Advisor:** Dr. Ernest Fokoué (School of Mathematics & Statistics)
@@ -64,6 +67,7 @@ Selected as a student-researcher for this National Science Foundation (NSF) fund
 * Developed counterfactual quantification methods for rigorously reasoning about natural histories that could have occurred but did not, yielding falsifiable paleontological predictions including a proposed origin of primates on Hațeg Island.
 
 **PUBLICATIONS & PREPRINTS**
+---
 
 Benander, Ajax. [*Aethic Reasoning: A Comprehensive Solution to the Quantum Measurement Problem*](https://philpapers.org/rec/BENARA-5). Phil Archive, 2024 Nov 14\. Preprint. 
 
@@ -76,6 +80,7 @@ Benander, Ajax. [*Extrusion Without Duplication: Aethic Time, Collapse, and Obse
 Benander, Ajax. [*A Condensed Overview of the Aethic Solution to the Measurement Problem*](https://philpapers.org/rec/BENACO-26). No. 5quha. Center for Open Science, 2024 Dec 18\. Preprint. 
 
 **TEACHING EXPERIENCE**  
+---
 **RIT SCHOOL OF MATHEMATICS & STATISTICS** 
 
 **9/2025 \- 12/2025 	Grader \- Linear Algebra**									    	Grade student assignments weekly for Dr. Lucia Carichino.   
@@ -86,7 +91,7 @@ Grade student assignments weekly for Dr. Nate Barlow.
 **9/2024 \- 12/2024 	Grader – Calculus II**	  
 Grade student assignments weekly for Dr. Nishant Malik.	    						      
 **HONORS & AWARDS**  
-	
+---
 
 **4/2025			SMS Outstanding Grader Award**   
 			*Issued by RIT School of Mathematics and Statistics*   
