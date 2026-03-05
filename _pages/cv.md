@@ -134,8 +134,6 @@ Selected as a student-researcher for this National Science Foundation (NSF) fund
 * Formulated the “Third Postulate of the Aethus,” deriving wavefunction collapse as a logical necessity (“checkmate condition”) required to prevent contradictory future states in the double-slit experiment.  
 * Established the “Aethic Fundamental Theorem,” proposing that systems with permanently inaccessible information function as hidden logical base cases for quantum coherence.
 
-   
-
 **7/2018 \- 12/2022  	Independent Research: Acespective Reasoning**  
 ***At Home (During Pandemic),** Massachusetts*
 
@@ -163,13 +161,14 @@ Benander, Ajax. [*A Condensed Overview of the Aethic Solution to the Measurement
 ---
 **RIT SCHOOL OF MATHEMATICS & STATISTICS** 
 
-**9/2025 \- 12/2025 	Grader \- Linear Algebra**									    	Grade student assignments weekly for Dr. Lucia Carichino.   
+**9/2025 \- 12/2025 	Grader \- Linear Algebra**
+Grade student assignments weekly for Dr. Lucia Carichino.   
    
 **1/2025 \- 5/2025	Grader – Linear Systems and Differential Equations**  
 Grade student assignments weekly for Dr. Nate Barlow.   
    
-**9/2024 \- 12/2024 	Grader – Calculus II**	  
-Grade student assignments weekly for Dr. Nishant Malik.	    						      
+**9/2024 \- 12/2024 	Grader – Calculus II**
+Grade student assignments weekly for Dr. Nishant Malik.	
 
 **HONORS & AWARDS**  
 ---
