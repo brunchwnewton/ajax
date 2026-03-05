@@ -124,5 +124,5 @@ Presented annually to a senior student who demonstrates character, resilience, d
 A merit-based scholarship awarded to the top high school students based on a standard achievement test in Massachusetts. 
 
 **5/2021			St. Mike’s Book Award**  
-*Issued by St. Michael’s College***,** *Colchester, VT*  
+*Issued by St. Michael’s College, Colchester, VT*  
 Awarded to a member of the National Honor Society who demonstrates outstanding academic achievement and a strong commitment to volunteerism and leadership in their communities.
