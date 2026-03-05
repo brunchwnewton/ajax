@@ -53,7 +53,7 @@ hazard rate analysis, survival functions, exponential and geometric
 distributions, and the relationship between algebraic weight structures 
 and classical probability.  
 
-**Inductive Reasoning & Scientific Methodology:** Hypotheses non fingo 
+**Inductive Reasoning & Scientific Methodology:** *Hypotheses non fingo* 
 inductive derivation, eliminative modes of deduction, the relationship 
 between ontological and epistemological progress in physics, Kuhnian 
 paradigm theory, and the philosophy of paradigm formation.  
