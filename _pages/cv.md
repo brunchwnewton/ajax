@@ -15,14 +15,18 @@ redirect_from:
 **PhilPapers:** [https://philpeople.org/profiles/ajax-benander/publications](https://philpeople.org/profiles/ajax-benander/publications)  
 **ResearchGate:** [https://www.researchgate.net/profile/Ajax-Benander](https://www.researchgate.net/profile/Ajax-Benander)
 
-**EDUCATION**  
+## **EDUCATION**  
+
+---
 
 **8/2022 \- present 		Rochester Institute of Technology (RIT)**  		      			   
 *Rochester, New York, USA*  
 Anticipated Degree: B.S.in Applied Mathematics, Minor in Philosophy                                                  
 *RIT Presidential Scholar; Accelerated Scholar; Dean’s List*  
    
-**RESEARCH INTERESTS**  
+## **RESEARCH INTERESTS**   
+
+---
 
 **Quantum Foundations:** The measurement problem, wavefunction collapse, decoherence theory, Bell nonlocality, EPR, Wheeler's delayed-choice experiment, the preferred basis problem, the Born rule, the Feynman path integral formalism, and competing interpretations (Copenhagen, Many-Worlds, Bohmian mechanics, QBism, relational quantum mechanics).  
    
@@ -58,7 +62,9 @@ Anticipated Degree: B.S.in Applied Mathematics, Minor in Philosophy
    
 **Scientific Communication & Pedagogy:** Thought experiment design for abstract conceptual illustration, mathematics education, interdisciplinary exposition, and macroscopic upscaling of quantum phenomena for pedagogical clarity.  
    
-**RESEARCH EXPERIENCE**   
+## **RESEARCH EXPERIENCE**    
+
+---
 
 **5/2024 \- 12/2024 	Independent Supervised Study: Advanced Theoretical Exposition**    
 ***Rochester Institute of Technology,** Rochester, NY*  
@@ -82,8 +88,6 @@ Selected as a student-researcher for this National Science Foundation (NSF) fund
 * Formulated the “Third Postulate of the Aethus,” deriving wavefunction collapse as a logical necessity (“checkmate condition”) required to prevent contradictory future states in the double-slit experiment.  
 * Established the “Aethic Fundamental Theorem,” proposing that systems with permanently inaccessible information function as hidden logical base cases for quantum coherence.
 
-   
-
 **7/2018 \- 12/2022  	Independent Research: Acespective Reasoning**  
 ***At Home (During Pandemic),** Massachusetts*
 
@@ -94,7 +98,9 @@ Selected as a student-researcher for this National Science Foundation (NSF) fund
 * Derived the Rare Earth hypothesis from first principles via cascading Bayesian inference over observer-compatible scenarios, proposing a falsifiable framework connecting anthropic reasoning to the Fermi paradox.  
 * Developed counterfactual quantification methods for rigorously reasoning about natural histories that could have occurred but did not, yielding falsifiable paleontological predictions including a proposed origin of primates on Hațeg Island.
 
-**PUBLICATIONS & PREPRINTS**
+## **PUBLICATIONS & PREPRINTS** 
+
+---
 
 Benander, Ajax. [*Aethic Reasoning: A Comprehensive Solution to the Quantum Measurement Problem*](https://philpapers.org/rec/BENARA-5). Phil Archive, 2024 Nov 14\. Preprint. 
 
@@ -106,7 +112,9 @@ Benander, Ajax. [*Extrusion Without Duplication: Aethic Time, Collapse, and Obse
 
 Benander, Ajax. [*A Condensed Overview of the Aethic Solution to the Measurement Problem*](https://philpapers.org/rec/BENACO-26). No. 5quha. Center for Open Science, 2024 Dec 18\. Preprint. 
 
-**TEACHING EXPERIENCE**  
+## **TEACHING EXPERIENCE**   
+
+---
 
 **RIT SCHOOL OF MATHEMATICS & STATISTICS** 
 
@@ -119,7 +127,9 @@ Grade student assignments weekly for Dr. Nate Barlow.
 **9/2024 \- 12/2024 	Grader – Calculus II**	  
 Grade student assignments weekly for Dr. Nishant Malik.	
 
-**HONORS & AWARDS**  
+## **HONORS & AWARDS**   
+
+---
 	
 
 **4/2025			SMS Outstanding Grader Award**   
