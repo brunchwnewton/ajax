@@ -67,7 +67,7 @@ Anticipated Degree: B.S.in Applied Mathematics, Minor in Philosophy
 ---
 
 **5/2024 \- 12/2024 	Independent Supervised Study: Advanced Theoretical Exposition**    
-***Rochester Institute of Technology,** Rochester, NY*  
+***Rochester Institute of Technology,*** *Rochester, NY*  
 **Advisor:** Dr. Ernest Fokoué (School of Mathematics & Statistics)
 
 * Focus: Subjected the pre-existing Aethic framework to rigorous collegial interrogation to refine its axiomatic definitions for publication.  
@@ -75,7 +75,7 @@ Anticipated Degree: B.S.in Applied Mathematics, Minor in Philosophy
 * Authored the comprehensive monograph *Aethic Reasoning* (PhilArchive, 2024), translating internal graph-theoretic intuitions into formal academic prose; the work has since accrued over 1500 downloads.
 
    
-**7/2023 	\- 7/2023**	**STEMFORALL Summer Research Program**   
+**7/2023 	\- 7/2023 	STEMFORALL Summer Research Program**   
 *University of Rochester, Rochester, NY*  
 Selected as a student-researcher for this National Science Foundation (NSF) funded 2-week intensive cohort of undergraduate researchers.   
 ***Research Focus:*** Modeling Seizures Using Machine Learning.  
