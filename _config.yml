@@ -23,7 +23,7 @@ repository               : "brunchwnewton/ajax"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "Ajax Profile.jpg"
+  avatar           : "Ajax_Profile.jpg"
   name             : "Ajax Knightley Benander"
   pronouns         : "he/him"  
   bio              : "Undergrad researcher with a passion for quantum foundations and our wider place in the universe."
