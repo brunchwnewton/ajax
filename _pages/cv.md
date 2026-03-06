@@ -76,7 +76,7 @@ Anticipated Degree: B.S.in Applied Mathematics, Minor in Philosophy
 
    
 **7/2023 	\- 7/2023 	STEMFORALL Summer Research Program**   
-*University of Rochester, Rochester, NY*  
+***University of Rochester,*** *Rochester, NY*  
 Selected as a student-researcher for this National Science Foundation (NSF) funded 2-week intensive cohort of undergraduate researchers.   
 ***Research Focus:*** Modeling Seizures Using Machine Learning.  
    
