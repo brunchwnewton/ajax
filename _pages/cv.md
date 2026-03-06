@@ -10,7 +10,7 @@ redirect_from:
 {% include base_path %}
 
 **Ajax Knightley Benander**  
-[akb9408@rit.edu](mailto:akb9408@rit.edu) ∞ [akbenander@gmail.com](mailto:akbenander@gmail.com) ∞ (508) 335-2868 ∞ Massachusetts, USA   
+[akb9408@rit.edu](mailto:akb9408@rit.edu) ∞ [akbenander@gmail.com](mailto:akbenander@gmail.com) ∞ Massachusetts, USA   
 **LinkedIn:** [https://www.linkedin.com/in/ajax-benander-5aaa65260/](https://www.linkedin.com/in/ajax-benander-5aaa65260/)  
 **PhilPapers:** [https://philpeople.org/profiles/ajax-benander/publications](https://philpeople.org/profiles/ajax-benander/publications)  
 **ResearchGate:** [https://www.researchgate.net/profile/Ajax-Benander](https://www.researchgate.net/profile/Ajax-Benander)
