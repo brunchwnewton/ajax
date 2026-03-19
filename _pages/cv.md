@@ -88,11 +88,11 @@ Selected as a student-researcher for this National Science Foundation (NSF) fund
 * Formulated the “Third Postulate of the Aethus,” deriving wavefunction collapse as a logical necessity (“checkmate condition”) required to prevent contradictory future states in the double-slit experiment.  
 * Established the “Aethic Fundamental Theorem,” proposing that systems with permanently inaccessible information function as hidden logical base cases for quantum coherence.
 
-**7/2018 \- 12/2022  	Independent Research: Acespective Reasoning**  
+**7/2018 \- 12/2022  	Independent Research: Nexic Reasoning**  
 ***At Home (During Pandemic),** Massachusetts*
 
 * Originated the “Accordance Principle,” serving to extend anthropic reasoning from physical constants to circumstantial natural historical events, initially through a paleontological thought experiment connecting dinosaur existence and extinction to human existence probability.  
-* Developed “Acespective Reasoning” (Acespecting), a generalized calculus over anthropic parameters asserting that Earth’s natural history follows a retrospective optimization principle analogous to stationary action in classical mechanics.  
+* Developed “Nexic Reasoning” (Acespecting), a generalized calculus over anthropic parameters asserting that Earth’s natural history follows a retrospective optimization principle analogous to stationary action in classical mechanics.  
 * Introduced the mechanism of “Optimation,” a novel category of selection effect distinct from both natural selection and teleology, characterizing the emergent appearance of intentionality in observer-compatible histories.  
 * Formulated the “Dark Era Hypothesis,” proposing that Mesozoic theropod predation pressure was causally necessary for the development of the mammalian limbic system and human cognitive architecture.  
 * Derived the Rare Earth hypothesis from first principles via cascading Bayesian inference over observer-compatible scenarios, proposing a falsifiable framework connecting anthropic reasoning to the Fermi paradox.  
@@ -104,7 +104,7 @@ Selected as a student-researcher for this National Science Foundation (NSF) fund
 
 Benander, Ajax. [*Aethic Reasoning: A Comprehensive Solution to the Quantum Measurement Problem*](https://philpapers.org/rec/BENARA-5). Phil Archive, 2024 Nov 14\. Preprint. 
 
-Benander, Ajax. [*Acespective Reasoning: Defining a Generalized Calculus Over Anthropic Parameters*](https://philpapers.org/rec/BENNRD). No. jvkcp. Center for Open Science, 2024 Dec 26\. Preprint. 
+Benander, Ajax. [*Nexic Reasoning: Defining a Generalized Calculus Over Anthropic Parameters*](https://philpapers.org/rec/BENNRD). No. jvkcp. Center for Open Science, 2024 Dec 26\. Preprint. 
 
 Benander, Ajax. [*Aethic Reasoning: Addressing the Quantum Observer Effect With Abstract Relational Logic*](https://philpapers.org/rec/BENARA-6). Phil Archive, 2025 Aug 16\. Preprint. 
 
