@@ -61,6 +61,8 @@ Anticipated Degree: B.S.in Applied Mathematics, Minor in Philosophy
 **Algorithm Design & Scientific Computing:** Graph-theoretic algorithms for physical classification, recursive tree pruning procedures, quantifier alternation in formal postulates, implementation of combinatorial classification algorithms (JavaScript), interactive web-based scientific visualization, and general-purpose scientific programming (Python, Java).  
    
 **Scientific Communication & Pedagogy:** Thought experiment design for abstract conceptual illustration, mathematics education, interdisciplinary exposition, and macroscopic upscaling of quantum phenomena for pedagogical clarity.  
+
+**Video Editing:** While not technically research, I can video edit competently, (just as long as it doesn't involve color grading). This is a skill I've been practicing since age six.
    
 ## **RESEARCH EXPERIENCE**    
 
