@@ -24,17 +24,16 @@ title: "Music — Ajax Benander"
   margin: 0 auto 2rem;
   line-height: 1.55;
 }
-.music-section-label {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-weight: 600;
-  margin: 2rem 0 0.8rem;
-  padding-bottom: 0.4rem;
-  border-bottom: 1px solid rgba(110,92,255,0.1);
+.month-header {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #f0f0ff;
+  margin: 2.2rem 0 0.6rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid rgba(110,92,255,0.12);
 }
-.music-section-label.songs { color: rgba(110,92,255,0.6); }
-.music-section-label.piano { color: rgba(251,191,36,0.6); }
+.month-header:first-of-type { margin-top: 0; }
 .track-list { display: flex; flex-direction: column; }
 .track {
   display: flex;
@@ -58,7 +57,7 @@ title: "Music — Ajax Benander"
   color: #d4d4e8;
   font-weight: 400;
 }
-.track-composer {
+.track-sub {
   font-size: 0.75rem;
   color: #7777aa;
   margin-top: 0.05rem;
@@ -76,11 +75,18 @@ title: "Music — Ajax Benander"
   filter: invert(0.85) hue-rotate(200deg) saturate(0.3);
 }
 .track audio:hover { opacity: 1; }
-.track-loading {
-  font-size: 0.75rem;
+.music-loading {
+  font-size: 0.85rem;
   color: #555570;
   font-style: italic;
-  padding: 0.5rem 0;
+  text-align: center;
+  padding: 2rem 0;
+}
+.track-count {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #555570;
+  margin-bottom: 1.5rem;
 }
 .music-footer {
   text-align: center;
@@ -101,18 +107,10 @@ title: "Music — Ajax Benander"
 <div class="music-wrap">
 
 <h1>Music</h1>
-<p class="music-intro">Songs and piano recordings by Ajax. Hit play on any track.</p>
+<p class="music-intro">Original compositions and recordings by Ajax, from latest to earliest.</p>
 
-<!-- ═══ SONGS ═══ -->
-<div class="music-section-label songs">Songs</div>
-<div class="track-list" id="song-list">
-  <div class="track-loading">Loading tracks…</div>
-</div>
-
-<!-- ═══ PIANO ═══ -->
-<div class="music-section-label piano">Piano</div>
-<div class="track-list" id="piano-list">
-  <div class="track-loading">Loading tracks…</div>
+<div id="track-container">
+  <div class="music-loading">Loading tracks…</div>
 </div>
 
 <div class="music-footer">
@@ -124,31 +122,62 @@ title: "Music — Ajax Benander"
 <script>
 // ──────────────────────────────────────────────
 // TRACK MANIFEST
-// Add or remove filenames here. The page reads
-// ID3 title, artist/composer from each file's
-// metadata, and picks up the date from the
-// server's Last-Modified header (which reflects
-// when the file was last committed/deployed).
+// Add or remove filenames here. Everything else
+// (title, composer, date, ordering) is automatic.
 // ──────────────────────────────────────────────
-var SONGS = [
-  'Cartesian.mp3',
-  'Elysium.mp3',
-  'Meridian.mp3',
-  'Parallax.mp3',
-  'Reversal.mp3'
+var BASE = '/ajax/files/songs/';
+
+var FILES = [
+  'Dark Flames\' Theme Song.mp3',
+  'Dark Flames - Orchestral.mp3',
+  'Dark Flames By Choir.mp3',
+  'Dark Orchestra.mp3',
+  'Dirty Chicago Theme.mp3',
+  'Evolution in A Minor.mp3',
+  'Hilltops in A Minor.mp3',
+  'Huma.mp3',
+  'Miracle Theme Orchestral.mp3',
+  'Reverb.mp3',
+  'Rocky Song 1.mp3',
+  'Sords Theme Song.mp3',
+  'The Eta Miracle.mp3',
+  'The Way Things Go.mp3',
+  'Eta FX + Reverb.wav',
+  'Song 1.mp3',
+  'Song 2 - Loop.mp3',
+  'Song 3 Orchestral.mp3',
+  'Song 4 Orchestral.mp3',
+  'Song 5.mp3',
+  'Song 7.mp3',
+  'Song 8 - Reverby.mp3',
+  'Song 9 Orchestral - Extra Reverby.mp3',
+  'Song 10 Orchestral.mp3',
+  'Song 11.mp3',
+  'Song 12 Orchestral.mp3',
+  'Song 13.mp3',
+  'Song 14 Orchestral.mp3',
+  'Song 15.mp3',
+  'Song 16.mp3',
+  'Song 17.mp3',
+  'Song 18.mp3',
+  'Song 20 Orchestral.mp3',
+  'Song 21.mp3',
+  'Song 22.mp3',
+  'Song 23.mp3',
+  'Song 24.mp3',
+  'BG Music 1.mp3',
+  'BG Music 1 - TCDS Effect.mp3',
+  'BG Music 1 - Underwater Muffle.mp3',
+  'Jingle.wav',
+  'Trailer End 2.mp3'
 ];
-var PIANO = [
-  'Piano_Improvisation_1.mp3',
-  'Piano_Improvisation_2.mp3'
-];
-var BASE_PATH = '/ajax/files/Songs/';
+
+var MONTHS = ['January','February','March','April','May','June',
+              'July','August','September','October','November','December'];
 
 function readTags(url) {
   return new Promise(function(resolve) {
-    if (typeof jsmediatags === 'undefined') {
-      resolve(null);
-      return;
-    }
+    if (typeof jsmediatags === 'undefined') { resolve(null); return; }
     jsmediatags.read(url, {
       onSuccess: function(tag) { resolve(tag.tags || null); },
       onError: function() { resolve(null); }
@@ -165,31 +194,54 @@ function fetchDate(url) {
     .catch(function() { return null; });
 }
 
-function fallbackName(filename) {
-  return filename
-    .replace(/\.[^.]+$/, '')
-    .replace(/_/g, ' ')
-    .replace(/(\d+)$/, ' $1');
-}
-
-function formatDate(d) {
-  if (!d || isNaN(d.getTime())) return '';
-  var months = ['Jan','Feb','Mar','Apr','May','Jun',
-                'Jul','Aug','Sep','Oct','Nov','Dec'];
-  return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
-}
-
-function buildTrack(num, url, filename, tags, fileDate) {
-  var title = (tags && tags.title) ? tags.title : fallbackName(filename);
-
-  // Try composer first, then artist, then TPE2 (band/album artist)
-  var composer = '';
+function extractDate(tags, serverDate) {
+  // Try ID3 date fields first
   if (tags) {
-    composer = tags.composer || tags.artist || '';
-    if (!composer && tags.TPE2) composer = tags.TPE2.data || '';
+    // TDRC = recording date (ID3v2.4), TYER = year (ID3v2.3)
+    var tdrc = tags.TDRC && tags.TDRC.data;
+    if (tdrc) {
+      var d = new Date(tdrc);
+      if (!isNaN(d.getTime())) return d;
+    }
+    if (tags.year) {
+      var y = parseInt(tags.year);
+      if (!isNaN(y)) return new Date(y, 0, 1);
+    }
   }
+  return serverDate;
+}
 
-  var dateStr = formatDate(fileDate);
+function prettify(filename) {
+  return filename.replace(/\.[^.]+$/, '').replace(/_/g, ' ');
+}
+
+function fmtDay(d) {
+  if (!d || isNaN(d.getTime())) return '';
+  return MONTHS[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+}
+
+function monthKey(d) {
+  if (!d || isNaN(d.getTime())) return 'Unknown Date';
+  return MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+}
+
+function buildTrack(num, url, filename, tags, date) {
+  var title = (tags && tags.title) ? tags.title : prettify(filename);
+  var sub = '';
+  if (tags) {
+    var composer = tags.composer || '';
+    var artist = tags.artist || '';
+    if (composer && artist && composer !== artist) {
+      sub = composer + ' \u00b7 ' + artist;
+    } else {
+      sub = composer || artist || '';
+    }
+    if (tags.album) sub += (sub ? ' \u00b7 ' : '') + tags.album;
+  }
+  var ds = fmtDay(date);
+
+  var ext = filename.split('.').pop().toLowerCase();
+  var mime = ext === 'wav' ? 'audio/wav' : 'audio/mpeg';
 
   var el = document.createElement('div');
   el.className = 'track';
@@ -197,49 +249,63 @@ function buildTrack(num, url, filename, tags, fileDate) {
     '<span class="track-num">' + num + '</span>' +
     '<div class="track-info">' +
       '<div class="track-title">' + title + '</div>' +
-      (composer ? '<div class="track-composer">' + composer + '</div>' : '') +
-      (dateStr ? '<div class="track-date">' + dateStr + '</div>' : '') +
+      (sub ? '<div class="track-sub">' + sub + '</div>' : '') +
+      (ds ? '<div class="track-date">' + ds + '</div>' : '') +
       '<audio controls preload="none">' +
-        '<source src="' + url + '" type="audio/mpeg">' +
+        '<source src="' + url + '" type="' + mime + '">' +
       '</audio>' +
     '</div>';
   return el;
 }
 
-function loadSection(files, containerId) {
-  var container = document.getElementById(containerId);
-  if (!container) return;
+document.addEventListener('DOMContentLoaded', function() {
+  var container = document.getElementById('track-container');
 
-  var promises = files.map(function(filename, i) {
-    var url = BASE_PATH + filename;
+  var promises = FILES.map(function(filename) {
+    var url = BASE + encodeURIComponent(filename);
     return Promise.all([readTags(url), fetchDate(url)])
-      .then(function(results) {
-        return {
-          num: i + 1,
-          url: url,
-          filename: filename,
-          tags: results[0],
-          date: results[1]
-        };
+      .then(function(r) {
+        var date = extractDate(r[0], r[1]);
+        return { url: url, filename: filename, tags: r[0], date: date };
+      })
+      .catch(function() {
+        return { url: url, filename: filename, tags: null, date: null };
       });
   });
 
   Promise.all(promises).then(function(tracks) {
+    // Sort newest first; undated tracks go to the end
+    tracks.sort(function(a, b) {
+      if (!a.date && !b.date) return 0;
+      if (!a.date) return 1;
+      if (!b.date) return -1;
+      return b.date.getTime() - a.date.getTime();
+    });
+
     container.innerHTML = '';
-    if (tracks.length === 0) {
-      container.innerHTML = '<div class="track-loading">No tracks found.</div>';
-      return;
-    }
+
+    // Count
+    var countEl = document.createElement('div');
+    countEl.className = 'track-count';
+    countEl.textContent = tracks.length + ' tracks';
+    container.appendChild(countEl);
+
+    // Group by month/year
+    var currentMonth = '';
+    var num = 0;
     tracks.forEach(function(t) {
-      container.appendChild(
-        buildTrack(t.num, t.url, t.filename, t.tags, t.date)
-      );
+      var mk = monthKey(t.date);
+      if (mk !== currentMonth) {
+        currentMonth = mk;
+        var h = document.createElement('div');
+        h.className = 'month-header';
+        h.textContent = mk;
+        container.appendChild(h);
+        num = 0;
+      }
+      num++;
+      container.appendChild(buildTrack(num, t.url, t.filename, t.tags, t.date));
     });
   });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  loadSection(SONGS, 'song-list');
-  loadSection(PIANO, 'piano-list');
 });
 </script>
