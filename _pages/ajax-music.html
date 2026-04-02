@@ -1,0 +1,245 @@
+---
+layout: default
+title: "Music — Ajax Benander"
+---
+<style>
+.music-wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 5.5rem 2rem 4rem;
+}
+.music-wrap h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 300;
+  color: #f0f0ff;
+  text-align: center;
+  margin-bottom: 0.3rem;
+}
+.music-intro {
+  text-align: center;
+  color: #8888aa;
+  font-size: 0.88rem;
+  max-width: 480px;
+  margin: 0 auto 2rem;
+  line-height: 1.55;
+}
+.music-section-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  margin: 2rem 0 0.8rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(110,92,255,0.1);
+}
+.music-section-label.songs { color: rgba(110,92,255,0.6); }
+.music-section-label.piano { color: rgba(251,191,36,0.6); }
+.track-list { display: flex; flex-direction: column; }
+.track {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid rgba(200,200,222,0.05);
+}
+.track:last-child { border-bottom: none; }
+.track-num {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.72rem;
+  color: #555570;
+  min-width: 1.5rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+.track-info { flex: 1; min-width: 0; }
+.track-title {
+  font-size: 0.9rem;
+  color: #d4d4e8;
+  font-weight: 400;
+}
+.track-composer {
+  font-size: 0.75rem;
+  color: #7777aa;
+  margin-top: 0.05rem;
+}
+.track-date {
+  font-size: 0.68rem;
+  color: #555570;
+  font-family: 'Fira Code', monospace;
+}
+.track audio {
+  width: 100%;
+  height: 32px;
+  margin-top: 0.4rem;
+  opacity: 0.8;
+  filter: invert(0.85) hue-rotate(200deg) saturate(0.3);
+}
+.track audio:hover { opacity: 1; }
+.track-loading {
+  font-size: 0.75rem;
+  color: #555570;
+  font-style: italic;
+  padding: 0.5rem 0;
+}
+.music-footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(200,200,222,0.06);
+  font-size: 0.78rem;
+  color: #555570;
+}
+.music-footer a {
+  color: #6e5cff;
+  text-decoration: none;
+}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
+
+<div class="music-wrap">
+
+<h1>Music</h1>
+<p class="music-intro">Songs and piano recordings by Ajax. Hit play on any track.</p>
+
+<!-- ═══ SONGS ═══ -->
+<div class="music-section-label songs">Songs</div>
+<div class="track-list" id="song-list">
+  <div class="track-loading">Loading tracks…</div>
+</div>
+
+<!-- ═══ PIANO ═══ -->
+<div class="music-section-label piano">Piano</div>
+<div class="track-list" id="piano-list">
+  <div class="track-loading">Loading tracks…</div>
+</div>
+
+<div class="music-footer">
+  <a href="/ajax/">← Back to About Ajax</a> · <a href="/">aethus.org</a>
+</div>
+
+</div>
+
+<script>
+// ──────────────────────────────────────────────
+// TRACK MANIFEST
+// Add or remove filenames here. The page reads
+// ID3 title, artist/composer from each file's
+// metadata, and picks up the date from the
+// server's Last-Modified header (which reflects
+// when the file was last committed/deployed).
+// ──────────────────────────────────────────────
+var SONGS = [
+  'Cartesian.mp3',
+  'Elysium.mp3',
+  'Meridian.mp3',
+  'Parallax.mp3',
+  'Reversal.mp3'
+];
+var PIANO = [
+  'Piano_Improvisation_1.mp3',
+  'Piano_Improvisation_2.mp3'
+];
+var BASE_PATH = '/ajax/files/Songs/';
+
+function readTags(url) {
+  return new Promise(function(resolve) {
+    if (typeof jsmediatags === 'undefined') {
+      resolve(null);
+      return;
+    }
+    jsmediatags.read(url, {
+      onSuccess: function(tag) { resolve(tag.tags || null); },
+      onError: function() { resolve(null); }
+    });
+  });
+}
+
+function fetchDate(url) {
+  return fetch(url, { method: 'HEAD' })
+    .then(function(res) {
+      var lm = res.headers.get('last-modified');
+      return lm ? new Date(lm) : null;
+    })
+    .catch(function() { return null; });
+}
+
+function fallbackName(filename) {
+  return filename
+    .replace(/\.[^.]+$/, '')
+    .replace(/_/g, ' ')
+    .replace(/(\d+)$/, ' $1');
+}
+
+function formatDate(d) {
+  if (!d || isNaN(d.getTime())) return '';
+  var months = ['Jan','Feb','Mar','Apr','May','Jun',
+                'Jul','Aug','Sep','Oct','Nov','Dec'];
+  return months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+}
+
+function buildTrack(num, url, filename, tags, fileDate) {
+  var title = (tags && tags.title) ? tags.title : fallbackName(filename);
+
+  // Try composer first, then artist, then TPE2 (band/album artist)
+  var composer = '';
+  if (tags) {
+    composer = tags.composer || tags.artist || '';
+    if (!composer && tags.TPE2) composer = tags.TPE2.data || '';
+  }
+
+  var dateStr = formatDate(fileDate);
+
+  var el = document.createElement('div');
+  el.className = 'track';
+  el.innerHTML =
+    '<span class="track-num">' + num + '</span>' +
+    '<div class="track-info">' +
+      '<div class="track-title">' + title + '</div>' +
+      (composer ? '<div class="track-composer">' + composer + '</div>' : '') +
+      (dateStr ? '<div class="track-date">' + dateStr + '</div>' : '') +
+      '<audio controls preload="none">' +
+        '<source src="' + url + '" type="audio/mpeg">' +
+      '</audio>' +
+    '</div>';
+  return el;
+}
+
+function loadSection(files, containerId) {
+  var container = document.getElementById(containerId);
+  if (!container) return;
+
+  var promises = files.map(function(filename, i) {
+    var url = BASE_PATH + filename;
+    return Promise.all([readTags(url), fetchDate(url)])
+      .then(function(results) {
+        return {
+          num: i + 1,
+          url: url,
+          filename: filename,
+          tags: results[0],
+          date: results[1]
+        };
+      });
+  });
+
+  Promise.all(promises).then(function(tracks) {
+    container.innerHTML = '';
+    if (tracks.length === 0) {
+      container.innerHTML = '<div class="track-loading">No tracks found.</div>';
+      return;
+    }
+    tracks.forEach(function(t) {
+      container.appendChild(
+        buildTrack(t.num, t.url, t.filename, t.tags, t.date)
+      );
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  loadSection(SONGS, 'song-list');
+  loadSection(PIANO, 'piano-list');
+});
+</script>
