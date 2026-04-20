@@ -228,9 +228,16 @@ function readTags(url) {
   if (typeof jsmediatags === 'undefined') {
     return Promise.resolve({ tags: null, reason: 'jsmediatags-not-loaded' });
   }
+  /* jsmediatags's URL pattern check rejects site-root-relative paths like
+     "/ajax/files/songs/foo.mp3" — it requires a fully-qualified URL with
+     scheme. Promote relative URLs to absolute against the current origin. */
+  var absoluteUrl = url;
+  if (url.indexOf('://') === -1) {
+    absoluteUrl = window.location.origin + (url.charAt(0) === '/' ? '' : '/') + url;
+  }
   var p = new Promise(function(resolve) {
     try {
-      jsmediatags.read(url, {
+      jsmediatags.read(absoluteUrl, {
         onSuccess: function(tag) {
           resolve({ tags: tag.tags || null, reason: 'success' });
         },
