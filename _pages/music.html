@@ -182,6 +182,7 @@ var FILES = [
   'Rocky Song 1.mp3',
   'Sords Theme Song.mp3',
   'The Eta Miracle.mp3',
+  'The Eta Miracle Orchestral.mp3',
   'The Way Things Go.mp3',
   'Song 1.mp3',
   'Song 2 - Loop.mp3',
@@ -249,7 +250,7 @@ function readTags(url) {
       resolve({ tags: null, reason: 'jsmediatags-threw', error: e });
     }
   });
-  return withTimeout(p, 4000).then(function(result) {
+  return withTimeout(p, 30000).then(function(result) {
     return result || { tags: null, reason: 'timeout' };
   });
 }
@@ -261,7 +262,7 @@ function fetchDate(url) {
       return lm ? new Date(lm) : null;
     })
     .catch(function() { return null; });
-  return withTimeout(p, 4000);
+  return withTimeout(p, 15000);
 }
 
 /* Pull a date out of jsmediatags output. Handles the many shapes ID3
@@ -270,32 +271,55 @@ function fetchDate(url) {
 function extractDate(tags, serverDate) {
   if (!tags) return serverDate;
 
-  /* All the field names known to carry a date or year, in priority order.
-     ID3v2.4 prefers TDRC; v2.3 used TYER+TDAT; some writers use TORY,
-     TDOR, recordingTime, originalReleaseTime, year, date. */
-  var candidates = [
-    tags.TDRC, tags.TDOR, tags.TDRL, tags.TDEN,
-    tags.TYER, tags.TORY, tags.recordingTime,
-    tags.originalReleaseTime, tags.releaseTime,
-    tags.date, tags.year
-  ];
-
-  for (var i = 0; i < candidates.length; i++) {
-    var raw = candidates[i];
-    if (raw == null) continue;
-
-    /* jsmediatags returns frame values in several shapes:
-       - a plain string ("2022-04-22T16:49:25" or "2022")
-       - { data: "..." }
-       - { data: { text: "..." } }
-       - a number (year)
-       Walk down to the actual primitive. */
+  /* Helper to walk down jsmediatags's various wrapper shapes to a primitive. */
+  function unwrap(raw) {
+    if (raw == null) return null;
     var val = raw;
     if (typeof val === 'object') {
       if (val.data != null) val = val.data;
       if (val && typeof val === 'object' && val.text != null) val = val.text;
     }
-    if (val == null || val === '') continue;
+    return (val == null || val === '') ? null : val;
+  }
+
+  /* ID3v2.3-style date: TYER (year) + TDAT (DDMM) + TIME (HHMM). When all
+     three are present, combine into a real timestamp. This is what older
+     Audition versions write. Check this first because it's the most
+     specific pattern; if it matches, the result is more accurate than
+     anything the candidate loop below would produce. */
+  var tyer = unwrap(tags.TYER);
+  if (tyer) {
+    var year = parseInt(String(tyer).match(/\d{4}/) ? String(tyer).match(/\d{4}/)[0] : 'X', 10);
+    if (!isNaN(year) && year > 1900 && year < 2100) {
+      var tdat = unwrap(tags.TDAT);  /* DDMM */
+      var time = unwrap(tags.TIME);  /* HHMM */
+      var month = 0, day = 1, hour = 12, minute = 0;
+      if (tdat && /^\d{4}$/.test(String(tdat))) {
+        day = parseInt(String(tdat).slice(0, 2), 10);
+        month = parseInt(String(tdat).slice(2, 4), 10) - 1;
+      }
+      if (time && /^\d{4}$/.test(String(time))) {
+        hour = parseInt(String(time).slice(0, 2), 10);
+        minute = parseInt(String(time).slice(2, 4), 10);
+      }
+      var combined = new Date(year, month, day, hour, minute);
+      if (!isNaN(combined.getTime())) return combined;
+    }
+  }
+
+  /* All the field names known to carry a date or year, in priority order.
+     ID3v2.4 prefers TDRC; v2.3 used TYER+TDAT (handled above); some
+     writers use TORY, TDOR, recordingTime, originalReleaseTime, etc. */
+  var candidates = [
+    tags.TDRC, tags.TDOR, tags.TDRL, tags.TDEN,
+    tags.TORY, tags.recordingTime,
+    tags.originalReleaseTime, tags.releaseTime,
+    tags.date, tags.year
+  ];
+
+  for (var i = 0; i < candidates.length; i++) {
+    var val = unwrap(candidates[i]);
+    if (val == null) continue;
 
     /* Try parsing as a Date directly first — handles ISO 8601, US-style
        "4/22/2022 4:49:25 PM", etc. */
