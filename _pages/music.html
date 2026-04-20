@@ -244,19 +244,74 @@ function fetchDate(url) {
   return withTimeout(p, 4000);
 }
 
+/* Pull a date out of jsmediatags output. Handles the many shapes ID3
+   frames can take across versions and writer software. Returns a Date
+   or null. Falls back to serverDate only as a last resort. */
 function extractDate(tags, serverDate) {
-  if (tags) {
-    var tdrc = tags.TDRC && tags.TDRC.data;
-    if (tdrc) {
-      var d = new Date(tdrc);
-      if (!isNaN(d.getTime())) return d;
+  if (!tags) return serverDate;
+
+  /* All the field names known to carry a date or year, in priority order.
+     ID3v2.4 prefers TDRC; v2.3 used TYER+TDAT; some writers use TORY,
+     TDOR, recordingTime, originalReleaseTime, year, date. */
+  var candidates = [
+    tags.TDRC, tags.TDOR, tags.TDRL, tags.TDEN,
+    tags.TYER, tags.TORY, tags.recordingTime,
+    tags.originalReleaseTime, tags.releaseTime,
+    tags.date, tags.year
+  ];
+
+  for (var i = 0; i < candidates.length; i++) {
+    var raw = candidates[i];
+    if (raw == null) continue;
+
+    /* jsmediatags returns frame values in several shapes:
+       - a plain string ("2022-04-22T16:49:25" or "2022")
+       - { data: "..." }
+       - { data: { text: "..." } }
+       - a number (year)
+       Walk down to the actual primitive. */
+    var val = raw;
+    if (typeof val === 'object') {
+      if (val.data != null) val = val.data;
+      if (val && typeof val === 'object' && val.text != null) val = val.text;
     }
-    if (tags.year) {
-      var y = parseInt(tags.year);
+    if (val == null || val === '') continue;
+
+    /* Try parsing as a Date directly first — handles ISO 8601, US-style
+       "4/22/2022 4:49:25 PM", etc. */
+    var d = new Date(val);
+    if (!isNaN(d.getTime()) && d.getFullYear() > 1900 && d.getFullYear() < 2100) {
+      return d;
+    }
+
+    /* Fallback: extract a 4-digit year from anywhere in the string. */
+    var m = String(val).match(/(19|20)\d{2}/);
+    if (m) {
+      var y = parseInt(m[0], 10);
       if (!isNaN(y)) return new Date(y, 0, 1);
     }
   }
+
   return serverDate;
+}
+
+/* One-time debug helper: log the shape of the first track's tags so we
+   can see what jsmediatags actually returned. Set DEBUG_TAGS to false
+   once dates are working. */
+var DEBUG_TAGS = true;
+var debugTagsLogged = false;
+function maybeLogTags(filename, tags) {
+  if (!DEBUG_TAGS || debugTagsLogged || !tags) return;
+  debugTagsLogged = true;
+  console.log('[music] sample ID3 tags for', filename, '-- full object:', tags);
+  console.log('[music] tag keys present:', Object.keys(tags));
+  var dateLikeKeys = Object.keys(tags).filter(function(k) {
+    return /^T(D|Y|OR)|date|year|time/i.test(k);
+  });
+  console.log('[music] possibly-date-related keys:', dateLikeKeys);
+  dateLikeKeys.forEach(function(k) {
+    console.log('[music]   ' + k + ' =', tags[k]);
+  });
 }
 
 function prettify(filename) {
@@ -352,12 +407,17 @@ function renderTracks() {
   }
 
   /* Try to enrich each track with ID3 tags and server dates. If a request
-     fails or hangs, the track simply keeps the filename-derived defaults. */
+     fails or hangs, the track simply keeps the filename-derived defaults.
+     Once all enrichment finishes, re-sort the DOM by date (newest first)
+     and add month/year group headers. */
   function enrichAsync() {
+    var enrichedDates = {};  /* filename -> Date or null */
+    var pending = FILES.length;
+
     FILES.forEach(function(filename) {
       var url = BASE + encodeURIComponent(filename);
       var trackEl = container.querySelector('[data-filename="' + filename.replace(/"/g, '\\"') + '"]');
-      if (!trackEl) return;
+      if (!trackEl) { pending--; if (pending === 0) sortAndGroup(enrichedDates); return; }
 
       var subEl = trackEl.querySelector('.track-sub-meta');
       var dateEl = trackEl.querySelector('.track-date-meta');
@@ -366,7 +426,9 @@ function renderTracks() {
       Promise.all([readTags(url), fetchDate(url)]).then(function(r) {
         var tags = r[0];
         var serverDate = r[1];
+        maybeLogTags(filename, tags);
         var date = extractDate(tags, serverDate);
+        enrichedDates[filename] = date || null;
 
         if (tags && tags.title) titleEl.textContent = tags.title;
         if (tags) {
@@ -384,7 +446,50 @@ function renderTracks() {
         if (date && dateEl) dateEl.textContent = fmtDay(date);
       }).catch(function(err) {
         console.warn('[music] enrichment failed for', filename, err);
+        enrichedDates[filename] = null;
+      }).then(function() {
+        pending--;
+        if (pending === 0) sortAndGroup(enrichedDates);
       });
+    });
+  }
+
+  /* Re-order the rendered tracks by date (newest first) and insert
+     month-group headers. Tracks with no date sink to the bottom under
+     "Unknown Date". */
+  function sortAndGroup(enrichedDates) {
+    var listEl = container.querySelector('.track-list');
+    if (!listEl) return;
+    var trackEls = Array.prototype.slice.call(listEl.querySelectorAll('.track'));
+
+    trackEls.sort(function(a, b) {
+      var da = enrichedDates[a.getAttribute('data-filename')];
+      var db = enrichedDates[b.getAttribute('data-filename')];
+      if (!da && !db) return 0;
+      if (!da) return 1;
+      if (!db) return -1;
+      return db.getTime() - da.getTime();
+    });
+
+    /* Wipe the list and rebuild with group headers and renumbered tracks. */
+    listEl.innerHTML = '';
+    var currentMonth = '';
+    var num = 0;
+    trackEls.forEach(function(el) {
+      var d = enrichedDates[el.getAttribute('data-filename')];
+      var mk = monthKey(d);
+      if (mk !== currentMonth) {
+        currentMonth = mk;
+        var h = document.createElement('div');
+        h.className = 'month-header';
+        h.textContent = mk;
+        listEl.appendChild(h);
+        num = 0;
+      }
+      num++;
+      var numEl = el.querySelector('.track-num');
+      if (numEl) numEl.textContent = num;
+      listEl.appendChild(el);
     });
   }
 
