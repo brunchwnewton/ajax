@@ -176,6 +176,7 @@ var FILES = [
   'Free Olympia Orchestral.mp3',
   'Hilltops in A Minor.mp3',
   'Huma.mp3',
+  'Jingle.mp3',
   'Miracle Theme Orchestral.mp3',
   'Reverb.mp3',
   'Rocky Song 1.mp3',
@@ -221,17 +222,29 @@ function withTimeout(promise, ms) {
 }
 
 function readTags(url) {
-  if (/\.wav($|\?)/i.test(url)) return Promise.resolve(null);
-  if (typeof jsmediatags === 'undefined') return Promise.resolve(null);
+  if (/\.wav($|\?)/i.test(url)) {
+    return Promise.resolve({ tags: null, reason: 'wav-skipped' });
+  }
+  if (typeof jsmediatags === 'undefined') {
+    return Promise.resolve({ tags: null, reason: 'jsmediatags-not-loaded' });
+  }
   var p = new Promise(function(resolve) {
     try {
       jsmediatags.read(url, {
-        onSuccess: function(tag) { resolve(tag.tags || null); },
-        onError: function() { resolve(null); }
+        onSuccess: function(tag) {
+          resolve({ tags: tag.tags || null, reason: 'success' });
+        },
+        onError: function(err) {
+          resolve({ tags: null, reason: 'jsmediatags-error', error: err });
+        }
       });
-    } catch (e) { resolve(null); }
+    } catch (e) {
+      resolve({ tags: null, reason: 'jsmediatags-threw', error: e });
+    }
   });
-  return withTimeout(p, 4000);
+  return withTimeout(p, 4000).then(function(result) {
+    return result || { tags: null, reason: 'timeout' };
+  });
 }
 
 function fetchDate(url) {
@@ -295,23 +308,39 @@ function extractDate(tags, serverDate) {
   return serverDate;
 }
 
-/* One-time debug helper: log the shape of the first track's tags so we
-   can see what jsmediatags actually returned. Set DEBUG_TAGS to false
-   once dates are working. */
+/* One-time debug helper: log the result of the first track's metadata
+   read, even when it failed. This always fires on first call so we always
+   know whether tag-reading is working at all on the deployed site.
+   Set DEBUG_TAGS to false once dates are confirmed working. */
 var DEBUG_TAGS = true;
 var debugTagsLogged = false;
-function maybeLogTags(filename, tags) {
-  if (!DEBUG_TAGS || debugTagsLogged || !tags) return;
+function maybeLogTags(filename, tagsResult, serverDate) {
+  if (!DEBUG_TAGS || debugTagsLogged) return;
   debugTagsLogged = true;
-  console.log('[music] sample ID3 tags for', filename, '-- full object:', tags);
-  console.log('[music] tag keys present:', Object.keys(tags));
-  var dateLikeKeys = Object.keys(tags).filter(function(k) {
-    return /^T(D|Y|OR)|date|year|time/i.test(k);
-  });
-  console.log('[music] possibly-date-related keys:', dateLikeKeys);
-  dateLikeKeys.forEach(function(k) {
-    console.log('[music]   ' + k + ' =', tags[k]);
-  });
+  console.log('[music] === First-track diagnostic ===');
+  console.log('[music] filename:', filename);
+  console.log('[music] readTags reason:', tagsResult ? tagsResult.reason : '(none)');
+  if (tagsResult && tagsResult.error) {
+    console.log('[music] readTags error:', tagsResult.error);
+  }
+  console.log('[music] jsmediatags loaded:', typeof jsmediatags !== 'undefined');
+  console.log('[music] server last-modified:', serverDate);
+
+  var tags = tagsResult && tagsResult.tags;
+  if (tags) {
+    console.log('[music] tag object:', tags);
+    console.log('[music] tag keys:', Object.keys(tags));
+    var dateLikeKeys = Object.keys(tags).filter(function(k) {
+      return /^T(D|Y|OR)|date|year|time/i.test(k);
+    });
+    console.log('[music] date-related keys:', dateLikeKeys);
+    dateLikeKeys.forEach(function(k) {
+      console.log('[music]   ' + k + ' =', tags[k]);
+    });
+  } else {
+    console.log('[music] no tag object returned -- see reason above');
+  }
+  console.log('[music] === End diagnostic ===');
 }
 
 function prettify(filename) {
@@ -361,6 +390,7 @@ function buildTrack(num, url, filename, tags, date) {
 }
 
 function renderTracks() {
+  console.log('[music] renderTracks() starting; ' + FILES.length + ' files; jsmediatags loaded:', typeof jsmediatags !== 'undefined');
   var container = document.getElementById('track-container');
   if (!container) {
     console.error('[music] track-container not found in DOM');
@@ -424,9 +454,11 @@ function renderTracks() {
       var titleEl = trackEl.querySelector('.track-title');
 
       Promise.all([readTags(url), fetchDate(url)]).then(function(r) {
-        var tags = r[0];
+        var tagsResult = r[0];  /* { tags, reason, error } */
         var serverDate = r[1];
-        maybeLogTags(filename, tags);
+        maybeLogTags(filename, tagsResult, serverDate);
+
+        var tags = tagsResult ? tagsResult.tags : null;
         var date = extractDate(tags, serverDate);
         enrichedDates[filename] = date || null;
 
