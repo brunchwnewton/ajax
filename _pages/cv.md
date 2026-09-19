@@ -112,9 +112,7 @@ Benander, Ajax. [*The Optimal Earth: A Paradigmatic Re-Rendition of Natural Hist
 
 Benander, Ajax. [*The Weight Algebra of Information States: A Two-Layer Commutative Semiring for Superposition and Pruning.*](https://philpapers.org/archive/BENTWA-5.pdf) Preprint, 2026.  
 
-Benander, Ajax. [*Nexic Reasoning: Defining a Generalized Calculus Over Anthropic Parameters.*](https://philpapers.org/rec/BENNRD) Long-form preprint; first deposited 2024.  
-
-Benander, Ajax. *Sequential Achievement and the Phase Transition in Outlier Productivity.* Manuscript, March 2026.
+Benander, Ajax. [*Nexic Reasoning: Defining a Generalized Calculus Over Anthropic Parameters.*](https://philpapers.org/rec/BENNRD) Long-form preprint; first deposited 2024. 
 
 ## **TEACHING EXPERIENCE**
 
