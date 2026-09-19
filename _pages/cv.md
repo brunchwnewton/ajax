@@ -86,39 +86,35 @@ Selected as a student-researcher for this National Science Foundation (NSF) fund
 * Applied the framework to natural history and astrobiology, including conditional Rare Earth results, evolutionary bottlenecks, and prospective tests of coupled historical prerequisites.  
 * Extended the same Bayesian structure to future-targeted and survival-conditioned problems, yielding Targeted Accordance and a separate stochastic survivorship program.
 
-## **SELECTED CURRENT MANUSCRIPTS**
+## **SELECTED PREPRINTS & MANUSCRIPTS**
 
 ---
 
-Benander, Ajax. *Aethic Reasoning in Brief: From a Counterfactual Semantics to the Quantum Measurement Problem.* Preprint, September 2026.  
+Benander, Ajax. [*Aethic Reasoning: A Comprehensive Solution to the Quantum Measurement Problem.*](https://philpapers.org/rec/BENARA-5) Comprehensive treatment; first deposited 2024, current version 2026.  
 
-Benander, Ajax. *Quantum Mechanics from Records: Three Consistency Postulates, One Composition Primitive, and One Kernel Recover the Measurement Architecture of the Dirac-von Neumann Formalism, with the Projection Postulate as a Theorem.* Draft, September 2026.  
+Benander, Ajax. [*Aethic Reasoning in Brief: From a Counterfactual Semantics to the Quantum Measurement Problem.*](https://philpapers.org/archive/BENARI-3.pdf) Overview preprint, 2026.  
 
-Benander, Ajax. *Determinacy as a Two-Place Relation: The Category Mistake in Quantum Interpretation, and the Dissolution of the Paradox Set.* August 2026.  
+Benander, Ajax. [*Counterfactual Evaluation by Perturbation of Information States: Deleting the Ordering, Not Refining It.*](https://philpapers.org/archive/BENCEB-2.pdf) Preprint, 2026.  
 
-Benander, Ajax. *Counterfactual Evaluation by Perturbation of Information States: Deleting the World-Similarity Ordering, Not Refining It.* Working draft, July 2026.  
+Benander, Ajax. [*Exclusivity as Achievement: Relocating Mutual Exclusion to the Interior, and the Logical Primitive That Falls Out.*](https://philpapers.org/archive/BENEAA-9.pdf) Preprint, 2026.  
 
-Benander, Ajax. *The Weight Algebra of Information States: A Two-Layer Commutative Semiring for Superposition and Pruning.* Working draft, July 2026.  
+Benander, Ajax. [*The Quantum-Classical Boundary as an Informational Classification: A Derivation from Three Consistency Postulates on Observer-Indexed Information States.*](https://philpapers.org/archive/BENTQB.pdf) Preprint, 2026.  
 
-Benander, Ajax. *The Copernican Method Against the Copernican Principle: Anthropic Typicality over Partial Information States.* Working draft, July 2026.  
+Benander, Ajax. [*Determinacy as a Two-Place Relation: The Category Mistake in Quantum Interpretation, and the Dissolution of the Paradox Set.*](https://philpapers.org/archive/BENTRO-72.pdf) Preprint, 2026.  
 
-Benander, Ajax. *The Optimal Earth: A Paradigmatic Re-Rendition of Natural History from Coupled Improbability.* Working draft, July 2026.  
+Benander, Ajax. [*Newcomb's Problem Without a Fixed Past: A Decision Rule from Observer-Indexed Determinacy.*](https://philpapers.org/archive/BENNPW.pdf) Preprint, 2026.  
 
-Benander, Ajax. *Sequential Achievement and the Phase Transition in Outlier Productivity.* March 2026.
+Benander, Ajax. [*Causality Without the Classical Triad: Reichenbach's Principle as a Theorem, and the Bell Correlations as Its Regime Boundary.*](https://philpapers.org/archive/BENCWT-4.pdf) Preprint, 2026.  
 
-## **EARLIER DEPOSITED PREPRINTS**
+Benander, Ajax. [*The Copernican Method Against the Copernican Principle: Anthropic Typicality over Partial Information States.*](https://philpapers.org/archive/BENTCM-7.pdf) Preprint, 2026.  
 
----
+Benander, Ajax. [*The Optimal Earth: A Paradigmatic Re-Rendition of Natural History from Coupled Improbability.*](https://philpapers.org/archive/BENTOE-4.pdf) Preprint, 2026.  
 
-Benander, Ajax. [*Aethic Reasoning: A Comprehensive Solution to the Quantum Measurement Problem*](https://philpapers.org/rec/BENARA-5). PhilArchive, 2024 Nov 14. Preprint.  
+Benander, Ajax. [*The Weight Algebra of Information States: A Two-Layer Commutative Semiring for Superposition and Pruning.*](https://philpapers.org/archive/BENTWA-5.pdf) Preprint, 2026.  
 
-Benander, Ajax. [*Nexic Reasoning: Defining a Generalized Calculus Over Anthropic Parameters*](https://philpapers.org/rec/BENNRD). No. jvkcp. Center for Open Science, 2024 Dec 26. Preprint.  
+Benander, Ajax. [*Nexic Reasoning: Defining a Generalized Calculus Over Anthropic Parameters.*](https://philpapers.org/rec/BENNRD) Long-form preprint; first deposited 2024.  
 
-Benander, Ajax. [*Aethic Reasoning: Addressing the Quantum Observer Effect With Abstract Relational Logic*](https://philpapers.org/rec/BENARA-6). PhilArchive, 2025 Aug 16. Preprint.  
-
-Benander, Ajax. [*Extrusion Without Duplication: Aethic Time, Collapse, and Observer-Relative Reality*](https://philpapers.org/rec/BENEWD). PhilArchive, 2025 Jun 5. Preprint.  
-
-Benander, Ajax. [*A Condensed Overview of the Aethic Solution to the Measurement Problem*](https://philpapers.org/rec/BENACO-26). No. 5quha. Center for Open Science, 2024 Dec 18. Preprint.
+Benander, Ajax. *Sequential Achievement and the Phase Transition in Outlier Productivity.* Manuscript, March 2026.
 
 ## **TEACHING EXPERIENCE**
 
